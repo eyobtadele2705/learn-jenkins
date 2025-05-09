@@ -35,8 +35,12 @@ pipeline {
                             npm test
                         '''
                     }
+                    post {
+                        always {
+                            junit 'test-results/junit.xml'
+                        }
+                    }
                 }
-
                 stage('E2E') {
                     agent {
                         docker {
@@ -72,14 +76,9 @@ pipeline {
             steps {
                 sh '''
                     npm install netlify-cli -g
-                    netlify --version
+                    node_modules/.bin/netlify --version
                 '''
             }
-        }
-    }
-    post {
-        always {
-            junit 'test-results/junit.xml'
         }
     }
 }
