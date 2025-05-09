@@ -15,6 +15,7 @@ pipeline {
             steps {
                 sh '''
                     ls -la
+                    apk add --no-cache bash
                     node --version
                     npm --version
                     npm ci
@@ -56,8 +57,6 @@ pipeline {
             }
             steps {
                 sh '''
-                    pwd
-                    ls -la
                     npm install netlify-cli
                     node_modules/.bin/netlify --version
                     echo "Deploying to production. Site ID: $NETLIFY_SITE_ID"
